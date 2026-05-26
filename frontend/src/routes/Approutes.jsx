@@ -6,11 +6,12 @@ import MessageInput from "../components/MessageInput";
 
 const AppRoutes = () => {
   const [messages, setMessages] = useState([
-    { text: "Hello 👋", sender: "me" },
-    { text: "Hi! Welcome", sender: "friend" },
+    { text: "Hello 👋", sender: "me" ,  time: "10:00 AM", status:"✓✓"},
+    { text: "Hi! Welcome", sender: "friend" ,  time: "10:01 AM",},
   ]);
 
-
+  const [isTyping,setIsTyping] = useState(false);
+  
   const messagesEndRef = useRef(null)
 
   useEffect(() =>{
@@ -26,7 +27,12 @@ const AppRoutes = () => {
       {
         text: newMessage,
         sender: "me",
-      },
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        status: "✓✓",
+      }
     ]);
   };
 
@@ -44,12 +50,17 @@ const AppRoutes = () => {
                 key={index}
                 message={msg.text}
                 sender={msg.sender}
+                time={msg.time}
+                status={msg.status}
               />
             ))}
             <div ref={messagesEndRef}></div>
           </div>
 
-          <MessageInput sendMessage={sendMessage} />
+          <MessageInput 
+          sendMessage={sendMessage} 
+          setIsTyping={setIsTyping}
+          />
         </div>
       </div>
     </div>

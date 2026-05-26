@@ -1,6 +1,6 @@
 import React from "react";
 
-const MessageBubble = ({ message, sender }) => {
+const MessageBubble = ({ message, sender, time, status }) => {
   return (
     <div
       className={`flex mb-4 ${
@@ -14,7 +14,15 @@ const MessageBubble = ({ message, sender }) => {
             : "bg-[#202c33]"
         }`}
       >
-        {message}
+        <p>{message}</p>
+
+        <div className="flex justify-end items-center gap-1 mt-1 text-[11px] text-gray-300">
+          <span>{time}</span>
+
+          {sender === "me" && (
+            <span>{status}</span>
+          )}
+        </div>
       </div>
     </div>
   );

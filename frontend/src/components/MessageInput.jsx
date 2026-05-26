@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const MessageInput = ({ sendMessage }) => {
+const MessageInput = ({ sendMessage ,setIsTyping}) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
@@ -17,7 +17,14 @@ const MessageInput = ({ sendMessage }) => {
         type="text"
         placeholder="Type a message"
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={(e) => {setMessage(e.target.value);
+          setIsTyping(true);
+
+          setTimeout(() => {
+            setIsTyping(false);
+          },1000);
+        }}
+
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSend();
