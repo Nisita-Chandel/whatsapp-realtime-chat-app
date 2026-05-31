@@ -22,8 +22,8 @@ const AppRoutes = () => {
 
 
   const sendMessage = (newMessage) => {
-    setMessages([
-      ...messages,
+    setMessages((prev) => [
+      ...prev,
       {
         text: newMessage,
         sender: "me",
@@ -32,18 +32,35 @@ const AppRoutes = () => {
           minute: "2-digit",
         }),
         status: "✓✓",
-      }
+      },
     ]);
+  
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: "Hello",
+          sender: "friend",
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        },
+      ]);
+    }, 1000);
   };
-
   return (
     <div className="h-screen bg-[#111b21] flex p-4">
       <div className="w-full h-full flex rounded-2xl overflow-hidden shadow-2xl">
         <Sidebar />
 
-        <div className="flex-1 bg-[#0b141a] flex flex-col">
-          <ChatHeader />
-
+        <div className="flex-1 bg-cover bg-center flex flex-col"
+        style={{
+          backgroundImage:
+            "url('https://i.pinimg.com/originals/65/91/8f/65918f8e4f2e3e0b7b4d7f0e6a6b4b93.jpg')",
+        }}
+        >
+        <ChatHeader isTyping={isTyping} />
           <div className="flex-1 p-6 overflow-y-auto">
             {messages.map((msg, index) => (
               <MessageBubble

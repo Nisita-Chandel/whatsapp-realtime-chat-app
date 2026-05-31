@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Smile ,Paperclip,Mic} from "lucide-react";
 const MessageInput = ({ sendMessage ,setIsTyping}) => {
   const [message, setMessage] = useState("");
 
@@ -13,6 +13,17 @@ const MessageInput = ({ sendMessage ,setIsTyping}) => {
 
   return (
     <div className="bg-[#202c33] p-4 flex gap-3">
+       <button className="text-gray-400 hover:text-white px-2">
+    <Smile size={26} />
+    </button>
+
+    <button className="text-gray-400 hover:text-white px-2">
+  <Paperclip size={24} />
+</button>
+
+<button className="text-gray-400 hover:text-white px-2">
+  <Mic size={24} />
+</button>
       <input
         type="text"
         placeholder="Type a message"

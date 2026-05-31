@@ -20,8 +20,10 @@ const MessageBubble = ({ message, sender, time, status }) => {
           <span>{time}</span>
 
           {sender === "me" && (
-            <span>{status}</span>
-          )}
+  <span className="text-sky-400">
+    {status}
+  </span>
+)}
         </div>
       </div>
     </div>
