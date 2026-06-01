@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import ChatHeader from "../components/ChatHeader";
 import MessageBubble from "../components/MessageBubble";
 import MessageInput from "../components/MessageInput";
+import socket from "../socket.js";
 
 const AppRoutes = () => {
   const [messages, setMessages] = useState([
@@ -21,7 +22,13 @@ const AppRoutes = () => {
   },[messages])
 
 
+
   const sendMessage = (newMessage) => {
+
+    socket.emit("send_message", {
+      text: newMessage,
+      sender: "me",
+    });
     setMessages((prev) => [
       ...prev,
       {
