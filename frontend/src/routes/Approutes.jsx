@@ -15,20 +15,33 @@ const AppRoutes = () => {
   
   const messagesEndRef = useRef(null)
 
-  useEffect(() =>{
-    messagesEndRef.current?.scrollIntoView({
-        behavior : "smooth",
-    })
-  },[messages])
+  useEffect(() => {
+    const handleReceiveMessage = (data) => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: data.text,
+          sender: "friend",
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        },
+      ]);
+    };
+  
+    socket.on("receive_message", handleReceiveMessage);
+  
+    return () => {
+      socket.off("receive_message", handleReceiveMessage);
+    };
+  }, []);
 
-
-
+  
   const sendMessage = (newMessage) => {
-
-    socket.emit("send_message", {
-      text: newMessage,
-      sender: "me",
-    });
+    if (!newMessage.trim()) return;
+  
+    // Show message immediately in sender's chat
     setMessages((prev) => [
       ...prev,
       {
@@ -42,20 +55,12 @@ const AppRoutes = () => {
       },
     ]);
   
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          text: "Hello",
-          sender: "friend",
-          time: new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-        },
-      ]);
-    }, 1000);
+    // Send only the text to backend
+    socket.emit("send_message", {
+      text: newMessage,
+    });
   };
+  
   return (
     <div className="h-screen bg-[#111b21] flex p-4">
       <div className="w-full h-full flex rounded-2xl overflow-hidden shadow-2xl">
