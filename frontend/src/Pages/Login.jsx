@@ -68,14 +68,30 @@ const Login = () => {
             className="w-full p-3 rounded bg-[#2a3942] text-white outline-none"
           />
 
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded font-semibold"
-          >
-            Login
-          </button>
+        
 
-        </form>
+<button
+  type="submit"
+  className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded font-semibold"
+>
+  Login
+</button>
+
+<div className="text-center mt-4">
+  <span className="text-gray-300">
+    Don't have an account?{" "}
+  </span>
+
+  <button
+    type="button"
+    onClick={() => navigate("/register")}
+    className="text-green-400 hover:text-green-500 font-semibold"
+  >
+    Register
+  </button>
+</div>
+
+</form>
       </div>
     </div>
   );

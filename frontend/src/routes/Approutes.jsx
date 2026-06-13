@@ -1,19 +1,33 @@
-import React, { useState ,useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import Sidebar from "../components/Sidebar";
 import ChatHeader from "../components/ChatHeader";
 import MessageBubble from "../components/MessageBubble";
 import MessageInput from "../components/MessageInput";
-import socket from "../socket.js";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ProtectedRoute from "../components/ProtectedRoute";
+import socket from "../socket";
 
-const AppRoutes = () => {
+const ChatPage = () => {
   const [messages, setMessages] = useState([
-    { text: "Hello 👋", sender: "me" ,  time: "10:00 AM", status:"✓✓"},
-    { text: "Hi! Welcome", sender: "friend" ,  time: "10:01 AM",},
+    {
+      text: "Hello 👋",
+      sender: "me",
+      time: "10:00 AM",
+      status: "✓✓",
+    },
+    {
+      text: "Hi! Welcome",
+      sender: "friend",
+      time: "10:01 AM",
+    },
   ]);
 
-  const [isTyping,setIsTyping] = useState(false);
-  
-  const messagesEndRef = useRef(null)
+  const [isTyping, setIsTyping] = useState(false);
+
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const handleReceiveMessage = (data) => {
@@ -29,19 +43,17 @@ const AppRoutes = () => {
         },
       ]);
     };
-  
+
     socket.on("receive_message", handleReceiveMessage);
-  
+
     return () => {
       socket.off("receive_message", handleReceiveMessage);
     };
   }, []);
 
-  
   const sendMessage = (newMessage) => {
     if (!newMessage.trim()) return;
-  
-    // Show message immediately in sender's chat
+
     setMessages((prev) => [
       ...prev,
       {
@@ -54,25 +66,32 @@ const AppRoutes = () => {
         status: "✓✓",
       },
     ]);
-  
-    // Send only the text to backend
+
     socket.emit("send_message", {
       text: newMessage,
     });
   };
-  
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages]);
+
   return (
     <div className="h-screen bg-[#111b21] flex p-4">
       <div className="w-full h-full flex rounded-2xl overflow-hidden shadow-2xl">
         <Sidebar />
 
-        <div className="flex-1 bg-cover bg-center flex flex-col"
-        style={{
-          backgroundImage:
-            "url('https://i.pinimg.com/originals/65/91/8f/65918f8e4f2e3e0b7b4d7f0e6a6b4b93.jpg')",
-        }}
+        <div
+          className="flex-1 bg-cover bg-center flex flex-col"
+          style={{
+            backgroundImage:
+              "url('https://i.pinimg.com/originals/65/91/8f/65918f8e4f2e3e0b7b4d7f0e6a6b4b93.jpg')",
+          }}
         >
-        <ChatHeader isTyping={isTyping} />
+          <ChatHeader isTyping={isTyping} />
+
           <div className="flex-1 p-6 overflow-y-auto">
             {messages.map((msg, index) => (
               <MessageBubble
@@ -86,13 +105,36 @@ const AppRoutes = () => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          <MessageInput 
-          sendMessage={sendMessage} 
-          setIsTyping={setIsTyping}
+          <MessageInput
+            sendMessage={sendMessage}
+            setIsTyping={setIsTyping}
           />
         </div>
       </div>
     </div>
+  );
+};
+
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/register" element={<Register />} />
+      
+      <Route path="*" element={<Navigate to="/login" />} />
+
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route path="/" element={<Navigate to="/login" />} />
+    </Routes>
   );
 };
 
