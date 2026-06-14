@@ -20,18 +20,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const data = await loginUser(formData);
-
+  
       if (data.success) {
+        // Save token
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
+  
+        // Save user
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+  
         alert("Login Successful ✅");
-        navigate("/chat");
-
-        console.log(data);
+  
+        // Navigate to chat
+        navigate("/chat", { replace: true });
+  
       } else {
         alert(data.message);
       }
