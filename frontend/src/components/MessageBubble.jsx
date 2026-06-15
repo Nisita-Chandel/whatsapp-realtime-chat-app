@@ -16,14 +16,20 @@ const MessageBubble = ({ message, sender, time, status }) => {
       >
         <p>{message}</p>
 
-        <div className="flex justify-end items-center gap-1 mt-1 text-[11px] text-gray-300">
-          <span>{time}</span>
+        <div className="flex justify-end items-center gap-1 mt-1 text-[11px]">
+          <span className="text-gray-300">{time}</span>
 
           {sender === "me" && (
-  <span className="text-sky-400">
-    {status}
-  </span>
-)}
+            <span
+              className={
+                status === "seen"
+                  ? "text-sky-400"
+                  : "text-gray-300"
+              }
+            >
+              ✓✓
+            </span>
+          )}
         </div>
       </div>
     </div>

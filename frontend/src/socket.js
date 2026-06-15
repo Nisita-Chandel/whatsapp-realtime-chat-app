@@ -6,11 +6,11 @@ const socket = io("http://localhost:3000", {
 });
 
 socket.on("connect", () => {
-  console.log("✅ Connected to Backend:", socket.id);
+  console.log("Connected to Backend:", socket.id);
 });
 
 socket.on("disconnect", () => {
-  console.log("❌ Disconnected from Backend");
+  console.log("Disconnected from Backend");
 });
 
 export default socket;

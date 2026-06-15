@@ -67,8 +67,13 @@ const ChatPage = () => {
       },
     ]);
 
+
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+
     socket.emit("send_message", {
       text: newMessage,
+      sender: currentUser?.name,
+      senderId: currentUser?._id,
     });
   };
 
