@@ -60,6 +60,8 @@ io.on("connection", (socket) => {
 
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("receive_message", data);
+    }else{
+      console.log("Receiver not online")
     }
   });
 

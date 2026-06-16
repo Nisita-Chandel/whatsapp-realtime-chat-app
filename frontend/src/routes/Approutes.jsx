@@ -30,6 +30,15 @@ const ChatPage = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+  
+    if (currentUser?._id) {
+      socket.emit("join", currentUser._id);
+    }
+  }, []);
+
+
+  useEffect(() => {
     const handleReceiveMessage = (data) => {
       setMessages((prev) => [
         ...prev,
@@ -74,6 +83,8 @@ const ChatPage = () => {
       text: newMessage,
       sender: currentUser?.name,
       senderId: currentUser?._id,
+      receiverId: "PUT_OTHER_USER_ID_HERE",
+
     });
   };
 
