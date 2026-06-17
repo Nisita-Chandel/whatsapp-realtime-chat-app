@@ -31,6 +31,13 @@ const ChatPage = () => {
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
+    let receiverId = "";
+
+if (currentUser.email === "x@gmail.com") {
+  receiverId = "6a3126ab4facb12da3a5b277"; // D
+} else if (currentUser.email === "d@gmail.com") {
+  receiverId = "6a32575505c8ced50d270078"; // X
+}
   
     if (currentUser?._id) {
       socket.emit("join", currentUser._id);
@@ -83,8 +90,7 @@ const ChatPage = () => {
       text: newMessage,
       sender: currentUser?.name,
       senderId: currentUser?._id,
-      receiverId: "PUT_OTHER_USER_ID_HERE",
-
+      receiverId
     });
   };
 

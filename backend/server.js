@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
@@ -45,26 +44,36 @@ io.on("connection", (socket) => {
     onlineUsers[userId] = socket.id;
 
     console.log("User Joined");
-    console.log({
-      userId,
-      socketId: socket.id,
-    });
+    console.log("User ID: ",userId);
+    console.log("Socket ID:", socket.id);
+    console.log("Online Users:",onlineUsers);
   });
 
   // Receive Message
   socket.on("send_message", (data) => {
+    console.log("================================");
     console.log("Message Received");
     console.log(data);
-
+  
+    console.log("Sender ID:", data.senderId);
+    console.log("Receiver ID:", data.receiverId);
+  
     const receiverSocketId = onlineUsers[data.receiverId];
-
+  
+    console.log("Receiver Socket:", receiverSocketId);
+  
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("receive_message", data);
-    }else{
-      console.log("Receiver not online")
+  
+      console.log("Message Sent Successfully");
+    } else {
+      console.log("Receiver Not Found");
     }
+  
+    console.log("================================");
   });
 
+  
   // User Disconnect
   socket.on("disconnect", () => {
     for (const userId in onlineUsers) {
