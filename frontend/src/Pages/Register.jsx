@@ -35,51 +35,78 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#111b21]">
-      <div className="bg-[#202c33] p-8 rounded-xl w-[420px] shadow-xl">
-        <h1 className="text-white text-3xl font-bold text-center mb-6">
-          Register
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#0f766e]">
+      <div className="w-[450px] backdrop-blur-lg bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8">
+  
+        {/* Logo */}
+        <div className="flex justify-center mb-4">
+          <div className="w-20 h-20 rounded-full bg-green-500 flex items-center justify-center text-4xl shadow-lg">
+            🚀
+          </div>
+        </div>
+  
+        {/* Heading */}
+        <h1 className="text-white text-4xl font-bold text-center mb-2">
+          Create Account
         </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-
+  
+        <p className="text-gray-300 text-center mb-8">
+          Join the Chat App today
+        </p>
+  
+        <form onSubmit={handleSubmit} className="space-y-5">
+  
           <input
             type="text"
             name="name"
-            placeholder="Full Name"
+            placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-3 rounded bg-[#2a3942] text-white outline-none"
+            className="w-full p-4 rounded-xl bg-white/10 border border-gray-600 text-white placeholder-gray-400 outline-none focus:border-green-500 transition"
             required
           />
-
+  
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 rounded bg-[#2a3942] text-white outline-none"
+            className="w-full p-4 rounded-xl bg-white/10 border border-gray-600 text-white placeholder-gray-400 outline-none focus:border-green-500 transition"
             required
           />
-
+  
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Create password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-3 rounded bg-[#2a3942] text-white outline-none"
+            className="w-full p-4 rounded-xl bg-white/10 border border-gray-600 text-white placeholder-gray-400 outline-none focus:border-green-500 transition"
             required
           />
-
+  
           <button
             type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded font-semibold"
+            className="w-full bg-green-500 hover:bg-green-600 transition-all duration-300 text-white p-4 rounded-xl font-bold text-lg shadow-lg"
           >
             Register
           </button>
-
+  
+          <div className="text-center">
+            <span className="text-gray-300">
+              Already have an account?{" "}
+            </span>
+  
+            <button
+              type="button"
+              onClick={() => (window.location.href = "/login")}
+              className="text-green-400 hover:text-green-300 font-semibold"
+            >
+              Login
+            </button>
+          </div>
+  
         </form>
       </div>
     </div>
