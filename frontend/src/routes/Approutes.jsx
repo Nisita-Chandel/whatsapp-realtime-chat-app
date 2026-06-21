@@ -5,9 +5,9 @@ import ChatHeader from "../components/ChatHeader";
 import MessageBubble from "../components/MessageBubble";
 import MessageInput from "../components/MessageInput";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
 import socket from "../socket";
+import Register from "../Pages/Register";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([
@@ -28,8 +28,28 @@ const ChatPage = () => {
 
   const messagesEndRef = useRef(null);
 
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
   
-
+    if (!currentUser?._id) return;
+  
+    const joinUser = () => {
+      console.log("Joining User:", currentUser._id);
+  
+      socket.emit("join", currentUser._id);
+    };
+  
+    if (socket.connected) {
+      joinUser();
+    } else {
+      socket.on("connect", joinUser);
+    }
+  
+    return () => {
+      socket.off("connect", joinUser);
+    };
+  }, []);
+ 
   useEffect(() => {
     const handleReceiveMessage = (data) => {
       setMessages((prev) => [
@@ -71,9 +91,9 @@ const ChatPage = () => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
     let receiverId = "";
 
-    if (currentUser?.email === "x@gmail.com") {
+    if (currentUser?.email === "jeet@gmail.com") {
       receiverId = "6a3126ab4facb12da3a5b277";
-    } else if (currentUser?.email === "d@gmail.com") {
+    } else if (currentUser?.email === "abhi@gmail.com") {
       receiverId = "6a32575505c8ced50d270078";
     }
     socket.emit("send_message", {
@@ -81,7 +101,9 @@ const ChatPage = () => {
       sender: currentUser?.name,
       senderId: currentUser?._id,
       receiverId,
+      
     });
+    console.log("Socket Connected?", socket.connected);
   };
 
   useEffect(() => {

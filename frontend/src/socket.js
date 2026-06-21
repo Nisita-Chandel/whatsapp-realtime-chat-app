@@ -1,16 +1,9 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000", {
-  transports: ["websocket"],
-  autoConnect: true,
-});
+const socket = io("http://localhost:3000");
 
 socket.on("connect", () => {
-  console.log("Connected to Backend:", socket.id);
-});
-
-socket.on("disconnect", () => {
-  console.log("Disconnected from Backend");
+  console.log("Connected:", socket.id);
 });
 
 export default socket;

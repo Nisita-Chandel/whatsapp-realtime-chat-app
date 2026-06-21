@@ -41,7 +41,7 @@ const Register = () => {
         {/* Logo */}
         <div className="flex justify-center mb-4">
           <div className="w-20 h-20 rounded-full bg-green-500 flex items-center justify-center text-4xl shadow-lg">
-            🚀
+            
           </div>
         </div>
   

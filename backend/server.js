@@ -42,11 +42,14 @@ io.on("connection", (socket) => {
   // User joins after login
   socket.on("join", (userId) => {
     onlineUsers[userId] = socket.id;
+    console.log("================================");
 
     console.log("User Joined");
     console.log("User ID: ",userId);
     console.log("Socket ID:", socket.id);
     console.log("Online Users:",onlineUsers);
+    console.log("================================");
+
   });
 
   // Receive Message
