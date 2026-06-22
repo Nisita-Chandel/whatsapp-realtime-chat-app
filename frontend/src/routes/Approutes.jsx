@@ -89,13 +89,23 @@ const ChatPage = () => {
     ]);
     
     const currentUser = JSON.parse(localStorage.getItem("user"));
+    console.log("FULL USER:", currentUser);
+console.log("EMAIL:", currentUser?.email);
+
     let receiverId = "";
 
-    if (currentUser?.email === "jeet@gmail.com") {
-      receiverId = "6a3126ab4facb12da3a5b277";
-    } else if (currentUser?.email === "abhi@gmail.com") {
-      receiverId = "6a32575505c8ced50d270078";
-    }
+if (currentUser?.email === "abhii@gmail.com") {
+  receiverId = "6a3939715927643bf9344747"; // Jeet
+
+} else if (currentUser?.email === "jeett@gmail.com") {
+  receiverId = "6a3939255927643bf9344746"; // Abhi
+
+}
+
+console.log("Current User:", currentUser?.email);
+console.log("Receiver ID:", receiverId);
+
+
     socket.emit("send_message", {
       text: newMessage,
       sender: currentUser?.name,
