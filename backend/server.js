@@ -7,6 +7,7 @@ const { Server } = require("socket.io");
 const connectDB = require("./src/config/db");
 const authRoutes = require("./src/routes/authRoutes");
 const messageRoutes = require("./src/routes/messageRoutes");
+const userRoutes = require("./src/routes/userRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
+app.use("/api/users", userRoutes);
 
 // Create HTTP Server
 const server = http.createServer(app);
