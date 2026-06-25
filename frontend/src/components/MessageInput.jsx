@@ -44,7 +44,7 @@ const MessageInput = ({ sendMessage, setIsTyping }) => {
         onClick={handleSend}
         className="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-lg font-semibold"
       >
-        Send
+        Send ✅
       </button>
 
       <button className="text-gray-400 hover:text-white">
