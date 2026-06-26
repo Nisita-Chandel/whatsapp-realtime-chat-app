@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import socket from "../socket";
 import Register from "../Pages/Register";
+import ChatList from "./ChatList";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([
@@ -126,7 +127,7 @@ console.log("Receiver ID:", receiverId);
     <div className="h-screen bg-[#111b21] flex p-4">
       <div className="w-full h-full flex rounded-2xl overflow-hidden shadow-2xl">
         <Sidebar />
-
+        <ChatList/>
         <div
           className="flex-1 bg-cover bg-center flex flex-col"
           style={{
@@ -153,8 +154,12 @@ console.log("Receiver ID:", receiverId);
             sendMessage={sendMessage}
             setIsTyping={setIsTyping}
           />
+
+          
         </div>
+        
       </div>
+      
     </div>
   );
 };
@@ -178,6 +183,7 @@ const AppRoutes = () => {
       />
 
       <Route path="/" element={<Navigate to="/login" />} />
+
     </Routes>
   );
 };
