@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import ChatList from "./ChatList";
 
 const Sidebar = () => {
   const [users, setUsers] = useState([]);
 
-  const currentUser = JSON.parse(
-    localStorage.getItem("user")
-  );
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     fetch("http://localhost:3000/api/users")
@@ -21,7 +20,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="w-[32%] bg-[#111b21] border-r border-[#2a3942]">
+    <div className="w-[32%] bg-[#111b21] border-r border-[#2a3942] flex flex-col">
 
       {/* Profile */}
       <div className="h-16 bg-[#202c33] px-4 flex items-center">
@@ -43,26 +42,8 @@ const Sidebar = () => {
         />
       </div>
 
-      {/* User List */}
-      <div className="px-2">
-
-        {users.map((user) => (
-          <div
-            key={user._id}
-            className="p-3 rounded-lg cursor-pointer hover:bg-[#202c33] mb-2"
-          >
-            <h2 className="text-white font-medium">
-              {user.name}
-            </h2>
-
-            <p className="text-sm text-gray-400">
-              {user.email}
-            </p>
-          </div>
-        ))}
-
-      </div>
-
+      {/* Chat List */}
+      <ChatList users={users} />
     </div>
   );
 };

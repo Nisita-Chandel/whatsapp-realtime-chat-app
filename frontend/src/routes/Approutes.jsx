@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Sidebar from "../components/Sidebar";
+import ChatList from "../components/ChatList";
 import ChatHeader from "../components/ChatHeader";
 import MessageBubble from "../components/MessageBubble";
 import MessageInput from "../components/MessageInput";
@@ -8,12 +10,12 @@ import Login from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import socket from "../socket";
 import Register from "../Pages/Register";
-import ChatList from "./ChatList";
-
 const ChatPage = () => {
   const [messages, setMessages] = useState([
     {
       text: "Hello 👋",
+
+
       sender: "me",
       time: "10:00 AM",
       status: "✓✓",
@@ -127,7 +129,6 @@ console.log("Receiver ID:", receiverId);
     <div className="h-screen bg-[#111b21] flex p-4">
       <div className="w-full h-full flex rounded-2xl overflow-hidden shadow-2xl">
         <Sidebar />
-        <ChatList/>
         <div
           className="flex-1 bg-cover bg-center flex flex-col"
           style={{
