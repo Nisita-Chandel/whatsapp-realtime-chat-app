@@ -29,6 +29,8 @@ const ChatPage = () => {
 
   const [isTyping, setIsTyping] = useState(false);
 
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -128,7 +130,10 @@ console.log("Receiver ID:", receiverId);
   return (
     <div className="h-screen bg-[#111b21] flex p-4">
       <div className="w-full h-full flex rounded-2xl overflow-hidden shadow-2xl">
-        <Sidebar />
+      <Sidebar
+  selectedUser={selectedUser}
+  setSelectedUser={setSelectedUser}
+/>
         <div
           className="flex-1 bg-cover bg-center flex flex-col"
           style={{

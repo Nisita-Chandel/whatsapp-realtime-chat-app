@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChatList from "./ChatList";
 
-const Sidebar = () => {
+const Sidebar = ({ selectedUser, setSelectedUser }) => {
   const [users, setUsers] = useState([]);
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -21,7 +21,6 @@ const Sidebar = () => {
 
   return (
     <div className="w-[32%] bg-[#111b21] border-r border-[#2a3942] flex flex-col">
-
       {/* Profile */}
       <div className="h-16 bg-[#202c33] px-4 flex items-center">
         <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg">
@@ -43,7 +42,11 @@ const Sidebar = () => {
       </div>
 
       {/* Chat List */}
-      <ChatList users={users} />
+      <ChatList
+        users={users}
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
+      />
     </div>
   );
 };
